@@ -20,15 +20,15 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import dto.ApiGatewayRequestDto;
+import dto.ApiGatewayResponseDto;
 import dto.ChatGptRequestBodyDto;
+import dto.ChatGptRequestBodyDto.Messages;
 import dto.ChatGptResponseBodyDto;
 import dto.LineRequestBodyDto;
-import dto.ApiGatewayResponseDto;
-import dto.LineResponseBodyDto;
-import dto.ApiGatewayRequestDto;
-import dto.ChatGptRequestBodyDto.Messages;
 import dto.LineRequestBodyDto.Event;
 import dto.LineRequestBodyDto.Event.Message;
+import dto.LineResponseBodyDto;
 
 public class App implements RequestHandler<ApiGatewayRequestDto, ApiGatewayResponseDto> {
 
@@ -54,8 +54,6 @@ public class App implements RequestHandler<ApiGatewayRequestDto, ApiGatewayRespo
 			
 		} else { 
 		
-			logger.log(request.getBody());
-			
 			logic(request.getBody(), logger);
 			
 			response.setIsBase64Encoded(false);
@@ -69,7 +67,9 @@ public class App implements RequestHandler<ApiGatewayRequestDto, ApiGatewayRespo
 	}
 	
 	private void logic(String requestBody, LambdaLogger logger) {
-
+		
+		logger.log("[REQUEST_BODY]: " + requestBody);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		LineRequestBodyDto lineRequestBody = null;
 		try {
@@ -84,7 +84,6 @@ public class App implements RequestHandler<ApiGatewayRequestDto, ApiGatewayRespo
 							String replyToken = e.getReplyToken();
 							
 							String text = e.getMessage().getText();						
-							logger.log("[REQUEST_BODY]: " + text);
 							
 							// ChatGPTへリクエストを実行
 							String ans = executeChatGPT(text, logger);
@@ -173,6 +172,8 @@ public class App implements RequestHandler<ApiGatewayRequestDto, ApiGatewayRespo
 		try {
 			String body = mapper.writeValueAsString(requestBody);
 			
+			logger.log("[CHATGPT_REQUEST_BODY]: " + body);
+			
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(URI.create(uri))
@@ -183,7 +184,7 @@ public class App implements RequestHandler<ApiGatewayRequestDto, ApiGatewayRespo
 			
 			try {
 				HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-				logger.log(response.body());
+				logger.log("[CHATGPT_RESPONSE_BODY]: " + response.body());
 				ChatGptResponseBodyDto responseBody = mapper.readValue(response.body(), ChatGptResponseBodyDto.class);
 				ans = responseBody.getChoices().get(0).getMessage().getContent();
 			} catch (IOException | InterruptedException e1) {
