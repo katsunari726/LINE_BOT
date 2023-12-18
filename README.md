@@ -1,4 +1,4 @@
-# ChatGPTを導入LINE公式アカウント
+# ChatGPTを導入したLINE公式アカウント
 
 
 LINE公式アカウント（BOT）からのWebhookをトリガーにAWS Lambda上で動作するプログラムです。  
