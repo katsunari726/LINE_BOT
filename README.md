@@ -19,4 +19,4 @@ ChatGPTの持つ自然言語処理技術を応用し、LINE公式アカウント
 * LINE Messaging API
 * ChatGPT API
 
-https://liff.line.me/1645278921-kWRPP32q/?accountId=790slrgb
+[友だち追加はこちら](https://liff.line.me/1645278921-kWRPP32q/?accountId=790slrgb)
