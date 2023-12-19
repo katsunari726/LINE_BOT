@@ -27,4 +27,7 @@ ChatGPTの持つ自然言語処理技術を応用し、LINE公式アカウント
 サンプル：[友だち追加](https://liff.line.me/1645278921-kWRPP32q/?accountId=790slrgb)
 
 
-![790slrgb](https://github.com/katsunari726/LINE_BOT/assets/154241712/77ee6583-f2a5-4d1d-9b75-de64142866e8)
+<img src="https://github.com/katsunari726/LINE_BOT/assets/154241712/77ee6583-f2a5-4d1d-9b75-de64142866e8" width="30%" /><br>
+
+
+<img src="https://github.com/katsunari726/LINE_BOT/assets/154241712/2a388614-e283-4f4c-b35b-4e56c65457b6" width="40%" />
